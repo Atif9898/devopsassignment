@@ -51,19 +51,69 @@ The Login to Amazon ECR step logs in to the specified ECR registry using the AWS
  ## Deployment 
  
  As we alreday have pushed our image on ECR so now we have to do follwing:
- Note: we are having 
+ Note: we are having our image in ECR in repo named Atif and use the latest one.
  
- # Load balancer
+ 
+Deploying Docker container to AWS Elastic Container Service (ECS) using AWS Fargate as the launch type.
+
+
+we have to make loadbalancer 
+
+# Load balancer
  Here are the steps to make a load balancer 
  Go to the AWS Management Console and navigate to the EC2 dashboard.
 Click on "Load Balancers" in the left-hand menu.
 Click on "Create Load Balancer" and choose "Application Load Balancer".
-Enter a name for your load balancer and choose the VPC and subnets that you want to use.
-Configure the "Security Settings" and "Security Groups" as per your requirements.
+Entred UniAssignLoadBalancer as name for load balancer and choosed the VPC and subnets.
+Configure the "Security Settings" and "Security Groups".
 On the "Configure Routing" page, create a new target group by clicking on "Create Target Group".
-Give your target group a name, choose the target type as "IP", and configure the health check settings as per your requirements.
+Give UniAssigntargetgroup target group as a name, choose the target type as "IP", and configure the health check settings.
 Choose the instances that will be part of your target group by selecting the appropriate values for "Target Group Name", "Protocol", "Port", and "Target type".
 Click on "Next" and configure the "Load Balancer Protocol" and "Listener Configuration" as per your requirements.
-Review your load balancer settings and click on "Create" to create the load balancer and target group.
+ click on "Create" to create the load balancer and target group.
+
+I have created an ECS cluster to host service.
+
+Follow are the steps:
+
+Login to the AWS Management Console and go to the Amazon ECS dashboard.
+Clicked on "Clusters" on the left-hand menu and clicked "Create Cluster".
+Choosed "Networking Only" as the cluster type and clicked "Next step".
+Enter a name for cluster as uniassigncluster and click "Create".
+Next, i created a task definition that describes how container should be run. 
+
+Follow these steps:
+
+In Amazon ECS dashboard and clicked on "Task Definitions" on the left-hand menu.
+Clicked on "Create new Task Definition" named UniAssignTaskDef.
+Choosed "Fargate" as the launch type and clicked "Next step".
+Choosed the task CPU and memory limits.
+Clicked "Add container" and enter a nameed my container.
+Entered the image URI for your Docker container that i have in ECR.
+Under "Port mappings", added the port 3000 that my container exposes.
+Clicked "Add" to add the container to the task definition and then click "Create".
+Then, I  created a service to run task on ECS. 
+
+Follow these steps:
+
+In Amazon ECS dashboard and clicked on "Clusters" on the left-hand menu.
+Clicked on the cluster that i have created in the first step.
+Clicked on "Create" next to "Services".
+Choosed "Fargate" as the launch type and clicked "Next step".
+Then I Choosed the task definition that i have created in the previous step.
+Choosed 2 tasks to run in your service.
+Under "Load balancing", choosed "Application Load Balancer".
+Then Choosed an existing load balancer that i have created early.
+Chossed the target group.
+Click "Next step".
+Then I Configured the service Auto Scaling settings.
+Click "Next step".
+Then "Create service".
+Now ECS will automatically launch my Docker container on Fargate.
 
  
+ 
+ Now choosed the DNS name of load balancer and paste in browser now my application is running.
+
+Now MY application is Running.
+NOTE: configure the ports in Load balancer .
