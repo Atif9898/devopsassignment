@@ -40,6 +40,6 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$ECR_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
-    #  - name: Write image digest to output
-     #   run: |
-      #    echo "${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ env.ECR_TAG }}" >> $GITHUB_ENV
+    
+     
+      
